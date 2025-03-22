@@ -1,0 +1,38 @@
+﻿@page
+@model Web_Learning.Pages.WalletModel
+
+<div class="modal-header">
+    <h5 class="modal-title">Add Funds to Wallet</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <p><strong>Current Balance:</strong> $@Model.AvailableBalance</p>
+
+    <div class="wallet-options">
+        <button class="btn btn-primary wallet-btn" data-amount="5">$5</button>
+        <button class="btn btn-primary wallet-btn" data-amount="10">$10</button>
+        <button class="btn btn-primary wallet-btn" data-amount="50">$50</button>
+        <button class="btn btn-primary wallet-btn" data-amount="100">$100</button>
+    </div>
+
+    <hr />
+
+    <form method="post">
+        <label>Enter Amount:</label>
+        <input type="number" name="AmountToAdd" min="1" step="0.01" class="form-control" required />
+        <button type="submit" class="btn btn-success mt-2">Add Funds</button>
+    </form>
+</div>
+
+<script>
+    document.querySelectorAll('.wallet-btn').forEach(button => {
+        button.addEventListener('click', function () {
+            var amount = this.getAttribute('data-amount');
+
+            fetch('/Wallet?handler=AddFunds&AmountToAdd=' + amount, { method: 'POST' })
+                .then(() => location.reload()); // Reload wallet balance after adding funds
+        });
+    });
+</script>

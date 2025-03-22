@@ -1,0 +1,121 @@
+﻿@page
+@model Web_Learning.Pages.ManageuserModel
+@{
+    ViewData["Title"] = "Manage Users";
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/StyleSheet.css">
+    <link rel="stylesheet" href="~/css/Manage.css">
+
+    <style>
+        /* Update Role Button */
+        .btn.update {
+            background-color: #007bff;
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+            .btn.update:hover {
+                background-color: #0056b3; /* Darker blue on hover */
+                transform: scale(1.05); /* Slight scaling on hover */
+            }
+
+            .btn.update:active {
+                background-color: #004085; /* Even darker blue when button is clicked */
+                transform: scale(1); /* Return to normal size after click */
+            }
+
+        /* Delete Button */
+        .btn.delete {
+            background-color: #dc3545;
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+            .btn.delete:hover {
+                background-color: #c82333; /* Darker red on hover */
+                transform: scale(1.05); /* Slight scaling on hover */
+            }
+
+            .btn.delete:active {
+                background-color: #bd2130; /* Even darker red when button is clicked */
+                transform: scale(1); /* Return to normal size after click */
+            }
+    </style>
+
+</head>
+<body>
+    <section class="contact_container">
+        <div class="contact_form">
+            <h2>All Users</h2>
+            <table class="user-list-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model.Users)
+                    {
+                        <tr>
+                            <td>@user.Id</td>
+                            <td>@user.Username</td>
+                            <td>@user.Email</td>
+                            <td>
+                                <form method="post" asp-page-handler="UpdateRole">
+                                    <input type="hidden" name="userId" value="@user.Id" />
+
+                                    <div>
+                                        @foreach (var role in Model.Roles)
+                                        {
+                                            <label>
+                                                <input type="radio" name="roleId" value="@role.Id"
+                                                @(user.UserRole?.Any(ur => ur.RoleId == role.Id) == true ? "checked" : "") />
+                                                @role.Name
+                                            </label>
+                                            <br />
+                                        }
+                                    </div>
+                                    <button type="submit" class="btn update" style="background-color: #007bff; color: white; padding: 0.6rem 1.2rem; border: none; border-radius: 0.5rem; cursor: pointer; font-size: 1rem; transition: background 0.3s, transform 0.2s;">
+                                        Update Role
+                                    </button>
+                                </form>
+                            </td>
+                            <td>
+                                <form method="post" asp-page-handler="DeleteUser" style="display: inline-block; margin: 0;">
+                                    <input type="hidden" name="userId" value="@user.Id" />
+                                    <button type="submit" class="btn delete" onclick="return confirm('Are you sure you want to delete this user?')" style="background-color: #dc3545; color: white; padding: 0.6rem 1.2rem; border: none; border-radius: 0.5rem; cursor: pointer; font-size: 1rem; transition: background 0.3s, transform 0.2s;">
+                                        Delete
+                                    </button>
+                                </form>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+</body>
+</html>

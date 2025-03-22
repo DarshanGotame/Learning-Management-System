@@ -1,0 +1,78 @@
+﻿@page
+@model Web_Learning.Pages.DashboardModel
+
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "_Layout";  // Layout is applied from _ViewStart.cshtml
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/StyleSheet.css">
+    <link rel="stylesheet" href="~/css/Dashboard.css">
+</head>
+
+<!-- Sidebar Section Starts -->
+<section class="sidebar">
+    <h3 class="text-white text-center">Dashboard</h3>
+    <a asp-page="/Dashboard">Dashboard</a>
+
+    @if (Model.Role == "Admin")
+    {
+        <a asp-page="/Manageuser">Manage Users</a>
+        <a asp-page="/Managecourses">Manage Courses</a>
+    }
+    else if (Model.Role == "Tutor")
+    {
+        <a asp-page="/Managecourses">Manage Courses</a>
+    }
+</section>
+<!-- Sidebar Section Ends -->
+<!-- Main Content Section Starts -->
+<section class="content">
+    <!-- Dashboard Section Starts -->
+    <section class="courses">
+        <h2>Dashboard Overview</h2>
+        <div class="container courses_container">
+            <!-- First Dashboard Chart -->
+            <article class="course">
+                <div class="course_image">
+                    <img src="~/images/dashboard-1.png" alt="Chart 1">
+                </div>
+                <div class="courses_info">
+                    <h4>Popular Courses</h4>
+                    <p>This chart shows an overview of the first dashboard metric.</p>
+                    <a asp-page="/Dashboard" class="btn btn-primary">Learn More</a>
+                </div>
+            </article>
+
+            <!-- Second Dashboard Chart -->
+            <article class="course">
+                <div class="course_image">
+                    <img src="~/images/dashboard-2.png" alt="Chart 2">
+                </div>
+                <div class="courses_info">
+                    <h4>Course Activities</h4>
+                    <p>This chart represents the second dashboard metric.</p>
+                    <a asp-page="/Dashboard" class="btn btn-primary">Learn More</a>
+                </div>
+            </article>
+
+            <!-- Third Dashboard Chart -->
+            <article class="course">
+                <div class="course_image">
+                    <img src="~/images/dashboard-3.png" alt="Chart 3">
+                </div>
+                <div class="courses_info">
+                    <h4>Balance</h4>
+                    <p>This chart displays the third dashboard metric.</p>
+                    <a asp-page="/Dashboard" class="btn btn-primary">Learn More</a>
+                </div>
+            </article>
+        </div>
+    </section>
+    <!-- Dashboard Section Ends -->
+
+</section>
+<!-- Main Content Section Ends -->
+
+<script src="~/js/main.js"></script>

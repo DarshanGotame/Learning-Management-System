@@ -1,0 +1,98 @@
+﻿@page
+@model Web_Learning.Pages.LoginModel
+@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Authentication.Cookies
+
+@{
+    Layout = "_Layout"; // Set the default layout explicitly
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Login.css" asp-append-version="true">
+}
+
+<div class="container">
+    <div class="login_container">
+        <div class="login_title">
+            <span>@(User.Identity.IsAuthenticated ? $"Welcome, {User.Identity.Name}" : "Login")</span>
+        </div>
+
+        <!-- Display Success Message -->
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="success-message" style="color:green">@TempData["SuccessMessage"]</div>
+        }
+
+        <!-- Display Error Message -->
+        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+        {
+            <div class="error-message">@Model.ErrorMessage</div>
+        }
+
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <form method="post">
+                <div class="input_wrapper">
+                    <input type="text" asp-for="Username" class="input_field" required>
+                    <label for="user" class="label">Username</label>
+                    <i class="fa-regular fa-user icon"></i>
+                </div>
+
+                <div class="input_wrapper">
+                    <input type="password" asp-for="Password" class="input_field" required>
+                    <label for="pass" class="label">Password</label>
+                    <i class="fa-solid fa-lock icon"></i>
+                </div>
+
+                <div class="remember-forget">
+                    <div class="remember-me">
+                        <input type="checkbox" id="remember">
+                        <label for="remember">Remember Me</label>
+                    </div>
+                    <div class="forget">
+                        <a href="#">Forgot Password</a>
+                    </div>
+                </div>
+
+                <div class="input_wrapper">
+                    <button type="submit" class="input-submit">Login</button>
+                </div>
+            </form>
+        }
+        else
+        {
+            <!-- Display Logout link if authenticated -->
+            <form method="post" action="/Logout">
+                <button type="submit" class="input-submit">Logout</button>
+            </form>
+        }
+
+        <div class="signup">
+            <span>Don't have an account <a asp-page="/Signup">Sign Up</a></span>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const inputs = document.querySelectorAll('.input_field');
+
+        inputs.forEach(input => {
+            input.addEventListener('focus', function () {
+                const label = this.nextElementSibling;
+                if (label && label.classList.contains('label')) {
+                    label.classList.add('label-active');
+                }
+            });
+
+            input.addEventListener('blur', function () {
+                const label = this.nextElementSibling;
+                if (label && label.classList.contains('label')) {
+                    if (this.value === "") {
+                        label.classList.remove('label-active');
+                    }
+                }
+            });
+        });
+    });
+</script>

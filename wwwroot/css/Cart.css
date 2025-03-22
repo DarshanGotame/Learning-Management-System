@@ -1,0 +1,161 @@
+﻿/* Root Colors */
+:root {
+    --color-primary: #6c63ff;
+    --color-success: #00bf8e;
+    --color-warning: #f7c94b;
+    --color-danger: #f75842;
+    --color-danger-variant: rgba(247, 88, 66, 0.4);
+    --color-white: #fff;
+    --color-black: #000;
+    --color-bg: #1f2641;
+    --color-bg1: #2e3267;
+    --color-bg2: #424890;
+    --container-width-lg: 76%;
+    --container-width-md: 90%;
+    --container-width-sm: 94%;
+    --transition: all 300ms ease;
+}
+
+/* General Styling */
+body {
+    background-color: var(--color-bg);
+    color: var(--color-white);
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Cart Title */
+/* Cart Title */
+h2 {
+    text-align: center;
+    color: var(--color-white);
+    font-size: 2.5rem;
+    margin: 120px 0 40px 0; /* Increased top margin */
+}
+
+
+/* Cart Actions Buttons */
+.cart-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+    .cart-actions button {
+        padding: 12px 25px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+    .cart-actions .btn-warning {
+        background-color: var(--color-warning);
+        color: var(--color-black);
+    }
+
+    .cart-actions .btn-success {
+        background-color: var(--color-success);
+    }
+
+    .cart-actions button:hover {
+        opacity: 0.8;
+    }
+
+/* Table Styles */
+.course-list-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+    .course-list-table th,
+    .course-list-table td {
+        padding: 15px;
+        text-align: left;
+    }
+
+    .course-list-table th {
+        background-color: var(--color-bg1);
+        color: var(--color-white);
+    }
+
+    .course-list-table td {
+        background-color: var(--color-bg2);
+        color: var(--color-white);
+    }
+
+/* Balance Info Styling */
+.balance-info {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: var(--color-bg1);
+    color: var(--color-white);
+    border-radius: 5px;
+    text-align: center;
+}
+
+.cart-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+    .cart-actions button {
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+
+    .cart-actions .btn-success:disabled {
+        background-color: var(--color-danger-variant);
+        border-color: var(--color-danger);
+        cursor: not-allowed;
+    }
+
+
+
+/* Table Images */
+.course-table-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+/* Remove Button */
+.btn-danger {
+    background-color: var(--color-danger);
+    color: var(--color-white);
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+    .btn-danger:hover {
+        background-color: var(--color-danger-variant);
+        opacity: 0.9;
+    }
+
+/* Responsive Table */
+@media (max-width: 768px) {
+    .course-list-table th,
+    .course-list-table td {
+        padding: 8px;
+    }
+
+    .cart-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+        .cart-actions button {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+}

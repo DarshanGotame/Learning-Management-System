@@ -1,0 +1,112 @@
+﻿.user-list-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2rem;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+    .user-list-table th,
+    .user-list-table td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid var(--color-bg2);
+        font-size: 1rem;
+    }
+
+    .user-list-table th {
+        background: var(--color-primary);
+        color: var(--color-white);
+    }
+
+    .user-list-table tr:nth-child(even) {
+        background: var(--color-bg);
+    }
+
+    .user-list-table tr:hover {
+        background: var(--color-bg2);
+        transition: background 0.3s ease-in-out;
+    }
+
+/* ============================== BUTTON STYLES ============================= */
+.btn-success {
+    background: #28a745;
+    color: white;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.btn-warning {
+    background: #ffc107;
+    color: black;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.btn-danger {
+    background: #dc3545;
+    color: white;
+    transition: background 0.3s, transform 0.2s;
+}
+
+    .btn-success:hover,
+    .btn-warning:hover,
+    .btn-danger:hover {
+        transform: scale(1.05);
+        opacity: 0.9;
+    }
+
+/* ============================== MEDIA QUERIES ============================= */
+@media screen and (max-width: 1024px) {
+    .user-list-table {
+        font-size: 0.9rem;
+    }
+
+        .user-list-table th,
+        .user-list-table td {
+            padding: 0.8rem;
+        }
+}
+
+@media screen and (max-width: 600px) {
+    .user-list-table {
+        font-size: 0.8rem;
+    }
+
+        .user-list-table th,
+        .user-list-table td {
+            padding: 0.6rem;
+        }
+
+        /* Stack the table rows for smaller screens */
+        .user-list-table th,
+        .user-list-table td {
+            display: block;
+            width: 100%;
+            text-align: right;
+        }
+
+        .user-list-table th {
+            background: var(--color-primary);
+        }
+
+        .user-list-table tr {
+            display: block;
+            margin-bottom: 1rem;
+            border: 1px solid var(--color-bg2);
+            border-radius: 0.5rem;
+        }
+
+        .user-list-table td {
+            text-align: left;
+            padding: 0.5rem;
+            border-top: 1px solid var(--color-bg2);
+        }
+
+            /* Add labels for table data in mobile view */
+            .user-list-table td::before {
+                content: attr(data-label);
+                font-weight: bold;
+                text-transform: uppercase;
+                margin-right: 1rem;
+            }
+}

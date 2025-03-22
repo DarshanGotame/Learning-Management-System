@@ -1,0 +1,80 @@
+﻿@page
+@model Web_Learning.Pages.CoursesModel
+
+@{
+    ViewData["Title"] = "Courses";
+    Layout = "_Layout";  // Layout is applied from _ViewStart.cshtml
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/StyleStyle.css">
+    <link rel="stylesheet" href="~/css/Course.css">
+</head>
+
+<!-- Popular Courses Section Starts -->
+<section class="courses">
+    <h2>Our Popular Courses</h2>
+    <div class="container courses_container">
+        @foreach (var course in Model.Courses)
+        {
+            <article class="course">
+                <div class="course_image">
+                    <!-- Dynamically load the image from the Course model -->
+                    <img src="@course.Image" alt="Image for @course.Title course">
+                </div>
+                <div class="courses_info">
+                    <!-- Dynamically load the title and description from the Course model -->
+                    <h4>@course.Title</h4>
+                    <div class="price-container">
+                        <!-- Dynamically load the price from the Course model -->
+                        <span>$@course.Price</span>
+                    </div>
+                    <p>@course.Description</p> <!-- Description added here -->
+                    <!-- Add to Cart Button -->
+                    <form method="post" asp-page="/Courses" asp-page-handler="AddToCart" asp-route-courseId="@course.Id">
+                            <button type="submit" class="btn btn-primary">Enroll now</button>
+                        </form>
+                </div>
+            </article>
+        }
+    </div>
+</section>
+<!-- Popular Courses Section Ends -->
+<!-- Courses Table Section Starts -->
+<section class="courses-table">
+    <h2>Available Courses</h2>
+    <table class="course-list-table">
+        <thead>
+            <tr>
+                <th>Course Image</th>
+                <th>Course Title</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Add to Cart</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var course in Model.Courses)
+            {
+                <tr>
+                    <td>
+                        <img src="@course.Image" alt="Image for @course.Title course" class="course-table-image">
+                    </td>
+                    <td>@course.Title</td>
+                    <td>@course.Description</td>
+                    <td>$@course.Price</td>
+                    <td>
+                        <!-- Add to Cart Form -->
+                        <form method="post" asp-page="/Courses" asp-page-handler="AddToCart" asp-route-courseId="@course.Id">
+                            <button type="submit" class="btn btn-primary">Add to Cart</button>
+                        </form>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>
+<!-- Courses Table Section Ends -->
+
+<script src="~/javascript/main.js"></script>

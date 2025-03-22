@@ -1,0 +1,195 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+@using Microsoft.EntityFrameworkCore
+
+@{
+    var hideNavbarPages = new List<string> { "/Login", "/Signup" };
+    var currentPage = Context.Request.Path.Value;  // Use .Value to convert PathString to string
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Web_Learning</title>
+    <link rel="stylesheet" href="~/css/StyleSheet.css" asp-append-version="true" />  <!-- Using External CSS file -->
+    
+    <!-- Using Internal CSS file -->
+    <style>                
+        .btn-logout{
+            background-color: #ff4c4c;
+            color: white;
+        }
+     </style>
+
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+    @if (!hideNavbarPages.Contains(currentPage))
+    {
+        <!-- Navbar Section Starts -->
+        <nav>
+            <div class="container nav_container">
+                <a asp-page="/Index">
+                    <h4>Learnsphere</h4>
+                </a>
+                <ul class="nav_menu">
+                    <li><a asp-page="/Index">Home</a></li>
+                    <li><a asp-page="/About">About</a></li>
+                    <li><a asp-page="/Courses">Courses</a></li>
+                    <li><a asp-page="/Contact">Contact</a></li>
+                    @if (User.IsInRole("Admin") || User.IsInRole("Tutor"))
+                    {
+                        <li><a asp-page="/Dashboard">Dashboard</a></li>
+                    }
+
+
+                </ul>
+
+                <div class="user-profile-container">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a asp-page="/Cart" class="cart-link">
+                            <i class="fa fa-shopping-cart"></i> Cart
+                        </a>
+
+                        <!-- Profile section for authenticated users -->
+                        <a asp-page="/Profile" id="profile-btn" class="user-link">
+                            <!-- Profile icon for logged-in users -->
+                            <i class="uil uil-user"></i>
+                            <p class="login">@User.Identity.Name</p> <!-- Displaying the username -->
+                        </a>
+
+                        <!-- Logout form -->
+                        <form method="post" asp-page="/Logout" id="logout-form" style="background-color: #ff4c4c; color: white;"> @* Using in-line css *@
+                            <button type="submit" class="btn btn-logout">Logout</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <!-- Profile section for unauthenticated users -->
+                        <a asp-page="/Login" id="profile-btn" class="user-link">
+                            <!-- Profile icon for non-authenticated users -->
+                            <i class="uil uil-user"></i>
+                            <p class="login">Login</p>
+                        </a>
+                    }
+                </div>
+
+                <button id="open-menu-btn"><i class="uil uil-bars"></i></button>
+                <button id="close-menu-btn"><i class="uil uil-multiply"></i></button>
+            </div>
+        </nav>
+    }
+
+    @RenderBody()
+
+    @if (!hideNavbarPages.Contains(currentPage))
+    {
+        <footer>
+            <div class="container footer_container">
+                <div class="footer_1">
+                    <a asp-page="/Index" class="footer_logo">
+                        <h4>Learnsphere</h4>
+                    </a>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit...</p>
+                </div>
+                <div class="footer_2">
+                    <h4>Permalinks</h4>
+                    <ul class="permalinks">
+                        <li><a asp-page="/Index">Home</a></li>
+                        <li><a asp-page="/About">About</a></li>
+                        <li><a asp-page="/Courses">Courses</a></li>
+                        <li><a asp-page="/Contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer_3">
+                    <h4>Privacy</h4>
+                    <ul class="privacy">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms and Conditions</a></li>
+                        <li><a href="#">Refund Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer_4">
+                    <h4>Contact Us</h4>
+                    <div>
+                        <p>+977 9800000000</p>
+                        <p>learnsphere@gmail.com</p>
+                    </div>
+                    <ul class="footer_socials">
+                        <li><a href="#"><i class="uil uil-facebook-f"></i></a></li>
+                        <li><a href="#"><i class="uil uil-twitter"></i></a></li>
+                        <li><a href="#"><i class="uil uil-instagram-alt"></i></a></li>
+                        <li><a href="#"><i class="uil uil-linkedin-alt"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer_copyright">
+                <small>Copyright &copy; Learnsphere</small>
+            </div>
+        </footer>
+    }
+
+    <script src="~/js/main.js" asp-append-version="true"></script>
+    <script>
+
+        // change navbar style on scroll
+
+        window.addEventListener('scroll', () => {
+            document.querySelector('nav').classList.toggle('window-scroll', window.scrollY > 0);             
+        });
+
+
+
+        // show/hide faq answer
+
+        const faqs = document.querySelectorAll('.faq');
+
+        faqs.forEach(faq => {
+            faq.addEventListener('click', () => {
+                faq.classList.toggle('open');
+
+                // change the icon
+                const icon = faq.querySelector('.faq_icon i');
+                if (icon.className === 'uil uil-plus') {
+                    icon.className = "uil uil-minus";
+                }
+                else {
+                    icon.className = "uil uil-plus";
+                }
+            });
+        });
+
+
+        // show/hide nav menu
+        const menu = document.querySelector('.nav_menu');
+        const menuBtn = document.querySelector('#open-menu-btn');
+        const closeBtn = document.querySelector('#close-menu-btn');
+
+        menuBtn.addEventListener('click', () => {
+            menu.style.display = "flex";
+            closeBtn.style.display = "inline-block";
+            menuBtn.style.display = "none";
+        })
+
+        // close nav menu
+        const closeNav = () => {
+            menu.style.display = "none";
+            closeBtn.style.display = "none";
+            menuBtn.style.display = "inline-block";
+        }
+
+        closeBtn.addEventListener('click', closeNav);
+
+        // For logout    
+            document.getElementById("logout-form").onsubmit = function() {
+                console.log("Logging out...");
+            };
+    </script>
+
+   
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

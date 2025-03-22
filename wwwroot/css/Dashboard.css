@@ -1,0 +1,252 @@
+﻿/* ========================== GLOBAL VARIABLES ========================== */
+
+:root {
+    --color-primary: #6c63ff;
+    --color-success: #00bf8e;
+    --color-warning: #f7c94b;
+    --color-danger: #f75842;
+    --color-danger-variant: rgba(247, 88, 66, 0.4);
+    --color-white: #fff;
+    --color-black: #000;
+    --color-bg: #1f2641;
+    --color-bg1: #2e3267;
+    --color-bg2: #424890;
+    --container-width-lg: 76%;
+    --container-width-md: 90%;
+    --container-width-sm: 94%;
+    --transition: all 300ms ease;
+}
+
+/* ========================== SIDEBAR (DARK THEME) ========================== */
+
+.sidebar {
+    background-color: var(--color-bg1); /* Matches the background of the table */
+    padding: 2rem;
+    width: 250px;
+    height: 100vh; /* Full height sidebar */
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    border-radius: 0 1rem 1rem 0;
+    margin-top: 5rem; /* Increased margin-top to move sidebar lower */
+}
+
+    .sidebar h3 {
+        color: var(--color-white);
+        font-size: 2rem;
+        text-align: center;
+        margin-bottom: 1.5rem;
+        padding-top: 2rem; /* Increased padding to push "Admin Dashboard" title lower */
+    }
+
+
+    .sidebar a {
+        display: block;
+        color: var(--color-white);
+        padding: 1rem;
+        font-size: 1.2rem;
+        text-decoration: none;
+        border-bottom: 1px solid var(--color-bg2); /* Dark separator between links */
+        transition: background-color 0.3s, padding-left 0.3s;
+    }
+
+        .sidebar a:hover {
+            background-color: var(--color-primary);
+            padding-left: 1.5rem; /* Slight padding shift on hover */
+        }
+
+        .sidebar a:active {
+            background-color: var(--color-secondary);
+        }
+
+/* ============================== MAIN CONTENT ============================= */
+
+.content {
+    margin-left: 250px; /* Space for the sidebar */
+    padding: 2rem;
+    background-color: var(--color-bg);
+    color: var(--color-white);
+    margin-top: 4rem; /* Adjusted to avoid overlap with the fixed navbar */
+}
+
+.custom-header {
+    background-color: var(--color-bg1);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+    .custom-header h2 {
+        color: var(--color-white);
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .custom-header p {
+        color: var(--color-white);
+        font-size: 1.2rem;
+    }
+
+/* ========================== COURSES (DARK THEME) ========================== */
+
+.courses {
+    padding: 2rem;
+    background-color: var(--color-bg1);
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 1rem;
+    max-width: 1800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+    .courses h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        color: var(--color-white);
+        margin-bottom: 2rem;
+    }
+
+.courses_container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+}
+
+.course {
+    background-color: var(--color-bg2);
+    padding: 1rem;
+    border-radius: 1rem;
+    width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+}
+
+    .course:hover {
+        transform: scale(1.05);
+    }
+
+.course_image img {
+    width: 100%;
+    border-radius: 1rem;
+}
+
+.courses_info h4 {
+    color: var(--color-white);
+    font-size: 1.5rem;
+    margin-top: 1rem;
+}
+
+.courses_info p {
+    color: var(--color-white);
+    font-size: 1rem;
+    margin: 1rem 0;
+}
+
+.courses_info .btn {
+    padding: 0.6rem 1.5rem;
+    background-color: var(--color-success);
+    color: var(--color-white);
+    font-size: 1rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    text-decoration: none;
+}
+
+    .courses_info .btn:hover {
+        background-color: var(--color-warning);
+        transform: scale(1.05);
+    }
+
+/* ============================== MEDIA QUERIES ============================= */
+
+@media screen and (max-width: 1024px) {
+    .sidebar {
+        width: 200px;
+        padding: 1.5rem;
+    }
+
+        .sidebar h3 {
+            font-size: 1.8rem;
+        }
+
+        .sidebar a {
+            font-size: 1rem;
+        }
+
+    .content {
+        margin-left: 200px;
+    }
+
+    .courses_container {
+        gap: 1.5rem;
+    }
+
+    .course {
+        width: 260px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .sidebar {
+        width: 180px;
+        padding: 1rem;
+    }
+
+        .sidebar h3 {
+            font-size: 1.6rem;
+        }
+
+        .sidebar a {
+            font-size: 0.9rem;
+        }
+
+    .content {
+        margin-left: 180px;
+    }
+
+    .courses_container {
+        gap: 1rem;
+    }
+
+    .course {
+        width: 220px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .sidebar {
+        width: 150px;
+        padding: 0.8rem;
+    }
+
+        .sidebar h3 {
+            font-size: 1.4rem;
+        }
+
+        .sidebar a {
+            font-size: 0.8rem;
+        }
+
+    .content {
+        margin-left: 150px;
+    }
+
+    .courses_container {
+        gap: 0.8rem;
+    }
+
+    .course {
+        width: 200px;
+    }
+
+    .courses_info .btn {
+        padding: 0.4rem 1rem;
+        font-size: 0.85rem;
+    }
+}

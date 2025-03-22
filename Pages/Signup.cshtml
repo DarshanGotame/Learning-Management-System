@@ -1,0 +1,72 @@
+﻿@page
+@model Web_Learning.Pages.SignupModel
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Login.css" asp-append-version="true">
+}
+
+<div class="container">
+    <div class="login_container">
+        <div class="login_title">
+            <span>Sign Up</span>
+        </div>
+
+        <form method="post">
+            <div class="input_wrapper">
+                <input type="text" id="user" class="input_field" asp-for="Username" required>
+                <label for="user" class="label">Username</label>
+                <i class="fa-regular fa-user icon"></i>
+            </div>
+
+            <div class="input_wrapper">
+                <input type="email" id="email" class="input_field" asp-for="Email" required>
+                <label for="email" class="label">Email</label>
+                <i class="fa-solid fa-envelope icon"></i>
+            </div>
+
+            <div class="input_wrapper">
+                <input type="password" id="pass" class="input_field" asp-for="Password" required>
+                <label for="pass" class="label">Password</label>
+                <i class="fa-solid fa-lock icon"></i>
+            </div>
+
+            <div class="input_wrapper">
+                <input type="password" id="confirm_pass" class="input_field" asp-for="ConfirmPassword" required>
+                <label for="confirm_pass" class="label">Confirm Password</label>
+                <i class="fa-solid fa-lock icon"></i>
+            </div>
+
+            <div class="input_wrapper">
+                <input type="submit" class="input-submit" value="Sign Up">
+            </div>
+        </form>
+
+        <div class="signup">
+            <span>Already have an account? <a asp-page="/Login">Login</a></span>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const inputs = document.querySelectorAll('.input_field');
+
+        inputs.forEach(input => {
+            input.addEventListener('focus', function () {
+                const label = this.nextElementSibling;
+                if (label && label.classList.contains('label')) {
+                    label.classList.add('label-active');
+                }
+            });
+
+            input.addEventListener('blur', function () {
+                const label = this.nextElementSibling;
+                if (label && label.classList.contains('label')) {
+                    if (this.value === "") {
+                        label.classList.remove('label-active');
+                    }
+                }
+            });
+        });
+    });
+</script>
